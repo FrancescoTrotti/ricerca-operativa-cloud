@@ -13,6 +13,5 @@ pygraphviz >=1.5
 pydot>=1.2.4
 matplotlib==2.2.2
 pyyaml
-gdal
 networkx
 elementpath
