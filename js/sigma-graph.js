@@ -7,16 +7,23 @@ s = new sigma({graph: g, container: '$container', settings: {
             maxEdgeSize: 6,
             doubleClickEnabled: false,
             arrowSizeRatio: 5,
+            scalingMode: 'inside',
+            nodeHoverColor: 'node',
+            defaultNodeHoverColor: '#f00',
+            defaultNodeColor: 'blue',
+            sideMargin: 0.1
         }
 });
-
+ /*
 s.graph.nodes().forEach(function(n) {
   n.originalColor = n.color;
 });
 s.graph.edges().forEach(function(e) {
   e.originalColor = e.color;
 });
+*/
 
+/*
 s.bind('clickNode', function(e) {
   var nodeId = e.data.node.id,
       toKeep = s.graph.neighbors(nodeId);
@@ -38,7 +45,8 @@ s.bind('clickNode', function(e) {
 
   s.refresh();
 });
-
+*/
+/*
 s.bind('clickStage', function(e) {
   s.graph.nodes().forEach(function(n) {
     n.color = n.originalColor;
@@ -50,8 +58,54 @@ s.bind('clickStage', function(e) {
 
   s.refresh();
 });
+*/
+
+
 s.bind('clickNode', function(e) {
-  var kernel = IPython.notebook.kernel;
-    kernel.execute("a.append(5)");
+    var node = e.data.node;
+    var nodeId = node.id
+    if (!node.isSelected){
+        node.isSelected = true;
+        node.color = "#f00";
+        node.orginalColor = "#f00"
+        command = "first_set.append('"+nodeId+"')"
+        var kernel = IPython.notebook.kernel;
+        kernel.execute(command);        
+    }else if(node.color == "#f00"){
+        node.color = "#ff0";
+        node.orginalColor = "#ff0"
+        command = "second_set.append('"+nodeId+"')"
+        var kernel = IPython.notebook.kernel;
+        kernel.execute(command);
+        command_1 = "first_set.remove('"+nodeId+"')"
+        kernel.execute(command_1);
+    }else{
+        node.isSelected = false;
+        node.color = "#000";
+        node.orginalColor = "#000"
+        command = "second_set.remove('"+nodeId+"')"
+        var kernel = IPython.notebook.kernel;
+        kernel.execute(command);        
+    }
+
+    s.refresh();
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
