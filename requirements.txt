@@ -10,4 +10,4 @@ pyyaml
 networkx
 elementpath
 cyjupyter
-igraph
+jgraph
