@@ -9,3 +9,4 @@ matplotlib==2.2.2
 pyyaml
 networkx
 elementpath
+cyjupyter
